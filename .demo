@@ -1,0 +1,46 @@
+import 'dotenv/config';
+import express from 'express';
+import fetch from 'node-fetch';
+
+const app = express();
+const apiKey ="90f0b9b8adc3f57eceb5e9842373524c";
+
+app.use(express.static('public'));
+
+app.get('/yesterday-weather', async (req, res) => {
+    const city = req.query.city || 'Kasargod';
+    const today = Math.floor(Date.now() / 1000);
+    const yesterday = today - 86400;
+
+    try {
+        // Fetch city coordinates
+        const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+);
+        
+        console.log(geoResponse)
+        const geoData = await geoResponse.json();
+        console.log(geoData)
+        if (!geoData.length) return res.status(404).json({ error: 'City not found' });
+
+        const { lat, lon } = geoData[0];
+
+        // Fetch historical weather data
+        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${yesterday}&appid=${apiKey}&units=metric`);
+        const weatherData = await weatherResponse.json();
+        console.log(weatherData)
+
+        res.json({
+            temp: weatherData.current.temp,
+            humidity: weatherData.current.humidity,
+            wind_speed: weatherData.current.wind_speed,
+            description: weatherData.current.weather[0].description,
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Error fetching weather data' });
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+});

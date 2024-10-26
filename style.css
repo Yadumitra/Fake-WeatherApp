@@ -1,0 +1,66 @@
+/* public/style.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #e0f7fa;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search button {
+    padding: 10px;
+    background: #00796b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search button img {
+    width: 20px;
+}
+
+.weather {
+    margin-top: 20px;
+}
+
+.weather-icon {
+    width: 100px;
+}
+
+.temp {
+    font-size: 36px;
+}
+
+.city {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.col {
+    text-align: center;
+}
