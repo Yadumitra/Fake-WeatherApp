@@ -17,7 +17,7 @@ app.get('/yesterday-weather', async (req, res) => {
     console.log(yesterday)
     try {
         // Fetch city coordinates
-        const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Kasaragod&limit=70&appid=90f0b9b8adc3f57eceb5e9842373524c`);
+        const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Kasaragod&limit=70&appid=${apiKey}`);
        // const g = await geoResponse.json()
         //console.log(g)
         const geoData = await geoResponse.json();
@@ -34,7 +34,10 @@ app.get('/yesterday-weather', async (req, res) => {
         console.log(error)
         res.status(500).json({ error: 'Error fetching weather data'+error });
     }
+
 });
+
+
 
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
